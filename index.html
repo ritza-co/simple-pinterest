@@ -1,46 +1,86 @@
-<div class="container">
-    <figure>
-      <img src="https://assets.codepen.io/12005/windmill.jpg" alt="A windmill" />
-      <figcaption><a href="#">1</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/suspension-bridge.jpg" alt="The Clifton Suspension Bridge" />
-      <figcaption><a href="#">2</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/sunset.jpg" alt="Sunset and boats" />
-      <figcaption><a href="#">3</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/snowy.jpg" alt="a river in the snow" />
-      <figcaption><a href="#">4</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/bristol-balloons1.jpg" alt="a single checked balloon" />
-      <figcaption><a href="#">5</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/dog-balloon.jpg" alt="a hot air balloon shaped like a dog" />
-      <figcaption><a href="#">6</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/abq-balloons.jpg" alt="View from a hot air balloon of other balloons" />
-      <figcaption><a href="#">7</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/disney-balloon.jpg" alt="a balloon fairground ride" />
-      <figcaption><a href="#">8</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/bristol-harbor.jpg" alt="sunrise over a harbor" />
-      <figcaption><a href="#">9</a></figcaption>
-    </figure>
-    <figure>
-      <img src="https://assets.codepen.io/12005/bristol-balloons2.jpg" alt="three hot air balloons in a blue sky" />
-      <figcaption><a href="#">10</a></figcaption>
-    </figure>
-    <figure>
-    <img src="https://assets.codepen.io/12005/toronto.jpg" alt="the Toronto light up sign at night" />
-      <figcaption><a href="#">11</a></figcaption>
-    </figure>
-  </div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>My Moodboard</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1 class="header">My Moodboard</h1>
+    <label class="searchLabel">search</label>
+    <input class="searchInput"/>
+    <div>
+      <div class="card">
+        <img alt="Avatar" id="image" src="https://mk0internationadm2x7.kinstacdn.com/wp-content/uploads/2018/10/ben-mullins-785443-unsplash-768x432.jpg">
+        <div class="container">
+          <h4 id="title"><b></b></h4>
+          <p id="tags"></p>
+        </div>
+      </div>
+      <div class="card">
+        <img alt="Avatar" id="image" src="https://mk0internationadm2x7.kinstacdn.com/wp-content/uploads/2018/10/ben-mullins-785443-unsplash-768x432.jpg">
+        <div class="container">
+          <h4 id="title"><b></b></h4>
+          <p id="tags"></p>
+        </div>
+      </div>
+      <div class="card">
+        <img alt="Avatar" id="image" src="https://mk0internationadm2x7.kinstacdn.com/wp-content/uploads/2018/10/ben-mullins-785443-unsplash-768x432.jpg">
+        <div class="container">
+          <h4 id="title"><b></b></h4>
+          <p id="tags"></p>
+        </div>
+      </div>
+      <div class="card">
+        <img alt="Avatar" id="image" src="https://mk0internationadm2x7.kinstacdn.com/wp-content/uploads/2018/10/ben-mullins-785443-unsplash-768x432.jpg">
+        <div class="container">
+          <h4 id="title"><b></b></h4>
+          <p id="tags"></p>
+        </div>
+      </div>
+      <div class="card">
+        <img alt="Avatar" id="image" src="https://mk0internationadm2x7.kinstacdn.com/wp-content/uploads/2018/10/ben-mullins-785443-unsplash-768x432.jpg">
+        <div class="container">
+          <h4 id="title"><b></b></h4>
+          <p id="tags"></p>
+        </div>
+      </div>
+      <div class="card">
+        <img alt="Avatar" id="image" src="https://mk0internationadm2x7.kinstacdn.com/wp-content/uploads/2018/10/ben-mullins-785443-unsplash-768x432.jpg">
+        <div class="container">
+          <h4 id="title"><b></b></h4>
+          <p id="tags"></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const header = document.querySelector("header");
+      const section = document.querySelector("section");
+
+      fetch("pins.json")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          appendData(data);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+      function appendData(data) {
+        var titleContainer = document.getElementById("title");
+        var title = document.createElement("div");
+          title.innerHTML = "Title: " + data[i].title;
+          titleContainer.appendChild(title);
+
+        // for (var i = 0; i < data.length; i++) {
+          
+        // }
+      }
+    </script>
+  </body>
+</html>
