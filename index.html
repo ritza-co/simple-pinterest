@@ -12,10 +12,10 @@
     <h1 class="header">My Moodboard</h1>
     <div class="searchContainer">
       <label class="searchLabel">search</label>
-      <input class="searchInput" />
+      <input type="text" id="myInput" class="searchInput" oninput="filterTags()" />
     </div>
-    <div class="cardContainer" id="cardContainer">
-    </div>
+    <p id="searchResult"></p>
+    <div class="cardContainer" id="cardContainer"></div>
     <script>
       const cardContainer = document.querySelector("cardContainer");
 
@@ -32,7 +32,9 @@
 
       function appendData(data) {
         var cardContainer = document.getElementById("cardContainer");
-        var img = document.getElementById("img")
+        var img = document.getElementById("img");
+        var tagContainer = document.getElementById("div");
+        var tag = document.getElementById("button");
 
         for (var i = 0; i < data.length; i++) {
           var card = document.createElement("div");
@@ -40,13 +42,30 @@
           cardContainer.appendChild(card);
 
           var img = document.createElement("img");
-          img.src=data[i].src
+          img.src = data[i].src;
           card.appendChild(img);
 
           var tagContainer = document.createElement("div");
-          tagContainer.innerHTML = data[i].tags;
           card.appendChild(tagContainer);
+
+          const tagButtons = data[i].tags.map((tag) => {
+            const tagButton = document.createElement("button");
+            tagButton.onclick = () => {
+              console.log("clicked");
+            };
+            tagButton.innerHTML = tag;
+            return tagButton;
+          });
+          for (const tagButton of tagButtons) {
+            tagContainer.appendChild(tagButton);
+          }
         }
+      }
+
+      function filterTags() {
+        var x = document.getElementById("myInput").value;
+        document.getElementById("searchResult").innerHTML =
+          "You searched for: " + x;
       }
     </script>
   </body>
