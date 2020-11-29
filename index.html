@@ -18,13 +18,15 @@
     <div class="cardContainer" id="cardContainer"></div>
     <script>
       const cardContainer = document.querySelector("cardContainer");
+      let cards = [];
 
       fetch("pins.json")
         .then(function (response) {
           return response.json();
         })
         .then(function (data) {
-          appendData(data);
+          cards = data;
+          appendData(cards);
         })
         .catch(function (err) {
           console.log(err);
@@ -32,9 +34,7 @@
 
       function appendData(data) {
         var cardContainer = document.getElementById("cardContainer");
-        var img = document.getElementById("img");
-        var tagContainer = document.getElementById("div");
-        var tag = document.getElementById("button");
+        cardContainer.innerHTML = '';
 
         for (var i = 0; i < data.length; i++) {
           var card = document.createElement("div");
@@ -63,9 +63,17 @@
       }
 
       function filterTags() {
-        var x = document.getElementById("myInput").value;
+        var searchTerm = document.getElementById("myInput").value;
         document.getElementById("searchResult").innerHTML =
-          "You searched for: " + x;
+          "You searched for: " + searchTerm;
+        const searchTermLower = searchTerm.toLowerCase();
+        const filteredCards = cards.filter(card => {
+          return card.tags.find(tag => {
+            const tagLower = tag.toLowerCase();
+            return tagLower.includes(searchTermLower);
+          }) !== undefined;
+        });
+        appendData(filteredCards);
       }
     </script>
   </body>
