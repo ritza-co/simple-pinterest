@@ -14,77 +14,10 @@
       <label class="searchLabel">search</label>
       <input class="searchInput" />
     </div>
-    <div>
-      <div class="card">
-        <img
-          alt="Avatar"
-          id="image"
-          src="https://mk0internationadm2x7.kinstacdn.com/wp-content/uploads/2018/10/ben-mullins-785443-unsplash-768x432.jpg"
-        />
-        <div class="container">
-          <h4 id="title"><b></b></h4>
-          <p id="tags"></p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          alt="Avatar"
-          id="image"
-          src="https://i.pinimg.com/originals/2a/65/f3/2a65f33890ff03e08954a76d0a3d1865.jpg"
-        />
-        <div class="container">
-          <h4 id="title"><b></b></h4>
-          <p id="tags"></p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          alt="Avatar"
-          id="image"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfhYdIplE-UtslZHzzjdM5zJkCir1atAvgXg&usqp=CAU"
-        />
-        <div class="container">
-          <h4 id="title"><b></b></h4>
-          <p id="tags"></p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          alt="Avatar"
-          id="image"
-          src="https://miro.medium.com/max/10368/1*QDuUtggUKQxKA0pg8iCsyA.jpeg"
-        />
-        <div class="container">
-          <h4 id="title"><b></b></h4>
-          <p id="tags"></p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          alt="Avatar"
-          id="image"
-          src="https://thegctv.com/wp-content/uploads/2018/11/BlackGirlsCode_main.jpg"
-        />
-        <div class="container">
-          <h4 id="title"><b></b></h4>
-          <p id="tags"></p>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          alt="Avatar"
-          id="image"
-          src="https://i.ytimg.com/vi/Q6NiqRqGePU/maxresdefault.jpg"
-        />
-        <div class="container">
-          <h4 id="title"><b></b></h4>
-          <p id="tags"></p>
-        </div>
-      </div>
+    <div class="cardContainer" id="cardContainer">
     </div>
     <script>
-      const header = document.querySelector("header");
-      const section = document.querySelector("section");
+      const cardContainer = document.querySelector("cardContainer");
 
       fetch("pins.json")
         .then(function (response) {
@@ -98,14 +31,22 @@
         });
 
       function appendData(data) {
-        var titleContainer = document.getElementById("title");
-        var title = document.createElement("div");
-        title.innerHTML = "Title: " + data[i].title;
-        titleContainer.appendChild(title);
+        var cardContainer = document.getElementById("cardContainer");
+        var img = document.getElementById("img")
 
-        // for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
+          var card = document.createElement("div");
+          card.className = "card";
+          cardContainer.appendChild(card);
 
-        // }
+          var img = document.createElement("img");
+          img.src=data[i].src
+          card.appendChild(img);
+
+          var tagContainer = document.createElement("div");
+          tagContainer.innerHTML = data[i].tags;
+          card.appendChild(tagContainer);
+        }
       }
     </script>
   </body>
