@@ -24,15 +24,7 @@ We'll start off with a basic HTML skeleton, hard-coding the elements in our wire
 <html>
   <head>
     <meta charset="utf-8" />
-
     <title>My Moodboard</title>
-
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@300&display=swap"
-      rel="stylesheet"
-    />
   </head>
 
   <body>
@@ -45,7 +37,16 @@ We'll start off with a basic HTML skeleton, hard-coding the elements in our wire
       <p class="searchResult"></p>
       <button class="newCardButton">Add a card</button>
     </div>
-    <div class="cardContainer"></div>
+    <div class="cardContainer">
+      <div class="card">
+        <img/>
+        <div class="tagContainer">
+          <button class="tagButton">
+            tagButton
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -67,152 +68,29 @@ We'll start off with a basic HTML skeleton, hard-coding the elements in our wire
   </body>
 </html>```
 
+After writing our initial html, we need to start adding some styling to make it pretty and add some interactivity such as hover animations. 
+You could copy the styling from [this CSS file](https://github.com/ritza-co/simple-pinterest/blob/main/style.css), but it's encouraged to make this project your own, so don't be shy to customise the layout, colors and animations to make it your own. 
 
-## CSS
+## Adding styling
 
-```/* Main styles */
-html {
-  font-family: "helvetica neue", helvetica, arial, sans-serif;
-}
+Create a new file called `style.css`, which will contain all of your styling code. 
+Remember to link it within the <head /> of your `index.html` file: 
+`<link rel="stylesheet" href="style.css" />`
 
-body {
-  width: 80rem;
-  margin: 0 auto;
-  background-color: #f4b0b0;
-}
 
-/* Header */
+Here are a few ideas to get you started. 
+Remember that you can select an element directly, for example:
 
-h1 {
+```h1 {
   font-size: 4rem;
   text-align: center;
   font-family: "Bungee Shade", cursive;
   color: #fc47bb;
   text-shadow: 0 0 5px #fc47bb;
-}
+}```
 
-/* Search Bar */
-
-.searchContainer {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.searchLabel {
-  font-size: 1.2rem;
-  font-family: "Montserrat", sans-serif;
-  margin: 0 0.2rem;
-}
-
-.searchInput {
-  height: 2rem;
-  width: 25rem;
-  box-shadow: 0 0 5px #fc47bb;
-  font-family: "Montserrat", sans-serif;
-  margin: 0 0.2rem;
-}
-
-.searchResult {
-  font-family: "Montserrat", sans-serif;
-}
-
-/* New card button */
-
-.newCardButton {
-  font-family: "Montserrat", sans-serif;
-  font-size: large;
-  margin: 0 0.2rem;
-}
-
-/* Card contents */
-
-.cardContainer {
-  display: flex;
-  max-width: 80rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 80rem;
-  margin: 1rem;
-}
-
-img {
-  max-width: 25rem;
-  max-height: 30rem;
-  border-radius: 5px 5px 0 0;
-}
-
-.card {
-  background-color: #f7c5c5;
-  margin: 0.5rem;
-  max-width: 30rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  border-radius: 5px;
-}
-.tagContainer {
-  display: flex;
-  justify-content: center;
-}
-.tagButton {
-  text-shadow: 0 0 5px #fc47bb;
-  font-family: "Montserrat", sans-serif;
-  font-size: medium;
-  margin: 0.5rem;
-}
-
-/* Modal background */
-.modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
-  padding-top: 100px; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4); 
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-}
-
-/* Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* Form Inputs */
-.newCardInput,
-select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-/* Submit button */
-.submitButton {
+Alternatively, selecting an element by its class name:
+```.submitButton {
   width: 100%;
   background-color: #fc47bb;
   color: white;
@@ -221,11 +99,21 @@ select {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
+}```
 
-.submitButton :hover {
+Add animations by using pseudo-selectors such as :hover, as shown in this example:
+
+```.submitButton :hover {
   background-color: #b92985;
 }```
+
+[Google Fonts](https://fonts.google.com/) is a great resource for typography. Simply select the font you'd like to use, copy the link and paste it below your stylesheet within the  <head/>. You will then be able to use the font within your CSS file like this:
+  `font-family: "Bungee Shade", cursive;`
+
+## Writing data to your HTML
+
+Ideally, we'd like to dynamically populate our front-end with some data. We can do this by using the Javascript fetch() function to fetch the array in our `pins.json` file. 
+
 
 ## Javascript 
 
