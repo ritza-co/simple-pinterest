@@ -3,15 +3,17 @@ html {
 }
 
 body {
-  width: 60rem;
+  width: 80rem;
   margin: 0 auto;
-  background-color: rgba(221, 189, 146, 0.705);
+  background-color: #f4b0b0;
 }
 
 h1 {
   font-size: 4rem;
   text-align: center;
-  color: crimson;
+  font-family: "Bungee Shade", cursive;
+  color: #fc47bb;
+  text-shadow: 0 0 5px #fc47bb;
 }
 
 .searchContainer {
@@ -21,11 +23,18 @@ h1 {
 
 .searchLabel {
   font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
 }
 
 .searchInput {
   height: 2rem;
   width: 20rem;
+  box-shadow: 0 0 5px #fc47bb;
+  font-family: "Montserrat", sans-serif;
+}
+
+.searchResult {
+  font-family: "Montserrat", sans-serif;
 }
 
 img {
@@ -36,21 +45,21 @@ img {
 
 .cardContainer {
   display: flex;
+  max-width: 80rem;
   justify-content: center;
   flex-wrap: wrap;
   width: 80rem;
   margin: 1rem;
 }
 
-.container {
-  column-count: 4;
-  column-gap: 10px;
-}
 .card {
-  display: block;
   margin: 0.5rem;
   max-width: 30rem;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
+}
+.tagButton {
+  text-shadow: 0 0 5px #fc47bb;
+  font-family: "Montserrat", sans-serif;
 }

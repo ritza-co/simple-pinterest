@@ -6,7 +6,8 @@
     <title>My Moodboard</title>
 
     <link rel="stylesheet" href="style.css" />
-  </head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@300&display=swap" rel="stylesheet">  </head>
 
   <body>
     <h1 class="header">My Moodboard</h1>
@@ -18,8 +19,8 @@
         class="searchInput"
         oninput="filterTags()"
       />
+      <p id="searchResult" class="searchResult"></p>
     </div>
-    <p id="searchResult"></p>
     <div class="cardContainer" id="cardContainer"></div>
     <script>
       const cardContainer = document.querySelector("cardContainer");
@@ -71,6 +72,7 @@
             return tagButton;
           });
           for (const tagButton of tagButtons) {
+            tagButton.className = "tagButton";
             tagContainer.appendChild(tagButton);
           }
         }

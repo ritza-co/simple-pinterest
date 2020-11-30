@@ -23,3 +23,5 @@ Working with JSON: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Obj
 https://howtocreateapps.com/fetch-and-display-json-html-javascript/
 
 Using fetch: https://css-tricks.com/using-fetch/
+
+Google Fonts: https://fonts.google.com/
