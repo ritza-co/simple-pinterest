@@ -20,6 +20,7 @@ To add a new card, a modal will pop up wich will allow the user to enter an imag
 HTML basics
 We'll start off with a basic HTML skeleton, hard-coding the elements in our wireframe, which we are going to populate with data later on in this tutorial. You may find it useful to start adding your class names to each element, since we'll need this later when adding our styling. 
 
+```
 <html>
   <head>
     <meta charset="utf-8" />
