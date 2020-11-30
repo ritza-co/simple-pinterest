@@ -23,8 +23,6 @@
         class="searchInput"
         oninput="filterTags()"
       />
-      <!--  TODO  -->
-      <!-- <button onclick="document.getElementById('searchInput').value = ''">Clear search</button> -->
       <p id="searchResult" class="searchResult"></p>
       <button id="newCardButton" class="newCardButton">Add a card</button>
     </div>
@@ -138,26 +136,20 @@
             };
             cards = [...cards, newCard]
             appendData(cards)
-            modal.style.display = "none";
+            newCardModal.style.display = "none";
           }
-          // Get the modal
-          var modal = document.getElementById("newCardModal");
-          // Get the button that opens the modal
-          var btn = document.getElementById("newCardButton");
-          // Get the <span> element that closes the modal
-          var span = document.getElementsByClassName("close")[0];
-          // When the user clicks the button, open the modal
-          btn.onclick = function () {
-            modal.style.display = "block";
+          var newCardModal = document.getElementById("newCardModal");
+          var newCardButton = document.getElementById("newCardButton");
+          var closeModal = document.getElementsByClassName("close")[0];
+          newCardButton.onclick = function () {
+            newCardModal.style.display = "block";
           };
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function () {
-            modal.style.display = "none";
+          closeModal.onclick = function () {
+            newCardModal.style.display = "none";
           };
-          // When the user clicks anywhere outside of the modal, close it
           window.onclick = function (event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
+            if (event.target == newCardModal) {
+              newCardModal.style.display = "none";
             }
           };
     </script>
