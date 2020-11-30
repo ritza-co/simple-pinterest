@@ -29,7 +29,7 @@ h1 {
 
 .searchInput {
   height: 2rem;
-  width: 20rem;
+  width: 25rem;
   box-shadow: 0 0 5px #fc47bb;
   font-family: "Montserrat", sans-serif;
   margin: 0 0.2rem;
@@ -40,8 +40,8 @@ h1 {
 }
 
 .newCardButton {
-  font-size: x-large;
-  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  font-size: large;
   margin: 0 0.2rem;
 }
 
@@ -74,6 +74,7 @@ img {
 .tagButton {
   text-shadow: 0 0 5px #fc47bb;
   font-family: "Montserrat", sans-serif;
+  font-size: medium;
   margin: 0.5rem;
 }
 /* The Modal (background) */
@@ -115,7 +116,7 @@ img {
   cursor: pointer;
 }
 /* Style inputs */
-input[type=text], select {
+.newCardInput, select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

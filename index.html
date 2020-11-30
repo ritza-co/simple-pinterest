@@ -26,7 +26,7 @@
       <!--  TODO  -->
       <!-- <button onclick="document.getElementById('searchInput').value = ''">Clear search</button> -->
       <p id="searchResult" class="searchResult"></p>
-      <button id="newCardButton" class="newCardButton"> + </button>
+      <button id="newCardButton" class="newCardButton">Add a card</button>
     </div>
     <div class="cardContainer" id="cardContainer"></div>
     <div id="newCardModal" class="modal">
@@ -34,113 +34,132 @@
         <span class="close">&times;</span>
         <form>
           <label for="fname">Image source</label>
-          <input type="text" id="imgsrc" name="source" placeholder="Paste your image url here">
+          <input
+            type="text"
+            id="imgsrc"
+            name="source"
+            class="newCardInput"
+            placeholder="Paste your image url here"
+          />
           <label for="lname">Tags</label>
-          <input type="text" id="tags" name="tags" placeholder="Separate tags with a semicolon ( ; )">        
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            class="newCardInput"
+            placeholder="Separate tags with a semicolon ( ; )"
+          />
+          <button type="button" class="submitButton" onclick="saveNewCard()">
+            Submit
+          </button>
         </form>
-        <button class="submitButton" onclick="saveNewCard()">Submit</button>
       </div>
     </div>
     <script>
-      const cardContainer = document.querySelector("cardContainer");
-      let cards = [];
+          const cardContainer = document.querySelector("cardContainer");
+          let cards = [];
 
-      fetch("pins.json")
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          cards = data;
-          appendData(cards);
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
+          fetch("pins.json")
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              cards = data;
+              appendData(cards);
+            })
+            .catch(function (err) {
+              console.log(err);
+            });
 
-      function appendData(data) {
-        var cardContainer = document.getElementById("cardContainer");
-        cardContainer.innerHTML = "";
+          function appendData(data) {
+            var cardContainer = document.getElementById("cardContainer");
+            cardContainer.innerHTML = "";
 
-        for (var i = 0; i < data.length; i++) {
-          var card = document.createElement("div");
-          card.className = "card";
-          cardContainer.appendChild(card);
+            for (var i = 0; i < data.length; i++) {
+              var card = document.createElement("div");
+              card.className = "card";
+              cardContainer.appendChild(card);
 
-          var img = document.createElement("img");
-          img.src = data[i].src;
-          card.appendChild(img);
+              var img = document.createElement("img");
+              img.src = data[i].src;
+              card.appendChild(img);
 
-          var tagContainer = document.createElement("div");
-          tagContainer.className = "tagContainer";
-          card.appendChild(tagContainer);
+              var tagContainer = document.createElement("div");
+              tagContainer.className = "tagContainer";
+              card.appendChild(tagContainer);
 
-          const tagButtons = data[i].tags.map((tag) => {
-            const tagButton = document.createElement("button");
-            tagButton.onclick = () => {
-              const filteredCards = cards.filter((card) => {
-                return (
-                  card.tags.find((tag) => {
-                    return tag.includes(tagButton.innerHTML);
-                  }) !== undefined
-                );
+              const tagButtons = data[i].tags.map((tag) => {
+                const tagButton = document.createElement("button");
+                tagButton.onclick = () => {
+                  const filteredCards = cards.filter((card) => {
+                    return (
+                      card.tags.find((tag) => {
+                        return tag.includes(tagButton.innerHTML);
+                      }) !== undefined
+                    );
+                  });
+                  appendData(filteredCards);
+                };
+                tagButton.innerHTML = tag;
+                return tagButton;
               });
-              appendData(filteredCards);
-            };
-            tagButton.innerHTML = tag;
-            return tagButton;
-          });
-          for (const tagButton of tagButtons) {
-            tagButton.className = "tagButton";
-            tagContainer.appendChild(tagButton);
+              for (const tagButton of tagButtons) {
+                tagButton.className = "tagButton";
+                tagContainer.appendChild(tagButton);
+              }
+            }
           }
-        }
-      }
 
-      function filterTags() {
-        var searchTerm = document.getElementById("searchInput").value;
-        document.getElementById("searchResult").innerHTML =
-          "You searched for: " + searchTerm;
-        const searchTermLower = searchTerm.toLowerCase();
-        const filteredCards = cards.filter((card) => {
-          return (
-            card.tags.find((tag) => {
-              const tagLower = tag.toLowerCase();
-              return tagLower.includes(searchTermLower);
-            }) !== undefined
-          );
-        });
-        appendData(filteredCards);
-      }
+          function filterTags() {
+            var searchTerm = document.getElementById("searchInput").value;
+            document.getElementById("searchResult").innerHTML =
+              "You searched for: " + searchTerm;
+            const searchTermLower = searchTerm.toLowerCase();
+            const filteredCards = cards.filter((card) => {
+              return (
+                card.tags.find((tag) => {
+                  const tagLower = tag.toLowerCase();
+                  return tagLower.includes(searchTermLower);
+                }) !== undefined
+              );
+            });
+            appendData(filteredCards);
+          }
 
-      // Get the modal
-      var modal = document.getElementById("newCardModal");
+          function saveNewCard() {
+            var newImgSrc = document.getElementById("imgsrc").value;
+            var newTags = document.getElementById("tags").value.split(";");
+            var lastCardId = cards[cards.length - 1].id;
 
-      // Get the button that opens the modal
-      var btn = document.getElementById("newCardButton");
-
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
-
-      // When the user clicks the button, open the modal
-      btn.onclick = function () {
-        modal.style.display = "block";
-      };
-
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function () {
-        modal.style.display = "none";
-      };
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
-
-      function saveNewCard(){
-        console.log("submitted")
-      }
+            var newCard = {
+              "id": lastCardId + 1,
+              "src": newImgSrc,
+              "tags": newTags
+            };
+            cards = [...cards, newCard]
+            appendData(cards)
+            modal.style.display = "none";
+          }
+          // Get the modal
+          var modal = document.getElementById("newCardModal");
+          // Get the button that opens the modal
+          var btn = document.getElementById("newCardButton");
+          // Get the <span> element that closes the modal
+          var span = document.getElementsByClassName("close")[0];
+          // When the user clicks the button, open the modal
+          btn.onclick = function () {
+            modal.style.display = "block";
+          };
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function () {
+            modal.style.display = "none";
+          };
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          };
     </script>
   </body>
 </html>
