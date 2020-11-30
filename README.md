@@ -16,8 +16,6 @@ The app includes example collections.
 
 ## Resources
 
-Masonry layout: https://www.smashingmagazine.com/native-css-masonry-layout-css-grid/
-
 Working with JSON: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON 
 
 Displaying JSON data: https://howtocreateapps.com/fetch-and-display-json-html-javascript/
