@@ -7,44 +7,26 @@
   {
     "id": 2,
     "src": "https://i.pinimg.com/originals/2a/65/f3/2a65f33890ff03e08954a76d0a3d1865.jpg",
-    "tags": [
-      "headphones",
-      "smile",
-      "laptop"
-    ]
+    "tags": ["headphones", "smile", "laptop"]
   },
   {
     "id": 3,
     "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfhYdIplE-UtslZHzzjdM5zJkCir1atAvgXg&usqp=CAU",
-    "tags": [
-      "laptop",
-      "focussed"
-    ]
+    "tags": ["laptop", "focussed"]
   },
   {
     "id": 4,
     "src": "https://miro.medium.com/max/10368/1*QDuUtggUKQxKA0pg8iCsyA.jpeg",
-    "tags": [
-      "laptop",
-      "teamwork",
-      "smile"
-    ]
+    "tags": ["laptop", "teamwork", "smile"]
   },
   {
     "id": 5,
     "src": "https://thegctv.com/wp-content/uploads/2018/11/BlackGirlsCode_main.jpg",
-    "tags": [
-      "laptop",
-      "teamwork"
-    ]
+    "tags": ["laptop", "teamwork"]
   },
   {
     "id": 6,
     "src": "https://i.ytimg.com/vi/Q6NiqRqGePU/maxresdefault.jpg",
-    "tags": [
-      "laptop",
-      "headphones",
-      "focussed"
-    ]
+    "tags": ["laptop", "headphones", "focussed"]
   }
 ]
