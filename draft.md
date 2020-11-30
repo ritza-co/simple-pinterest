@@ -66,7 +66,8 @@ We'll start off with a basic HTML skeleton, hard-coding the elements in our wire
       </div>
     </div>
   </body>
-</html>```
+</html>
+```
 
 After writing our initial html, we need to start adding some styling to make it pretty and add some interactivity such as hover animations. 
 You could copy the styling from [this CSS file](https://github.com/ritza-co/simple-pinterest/blob/main/style.css), but it's encouraged to make this project your own, so don't be shy to customise the layout, colors and animations to make it your own. 
@@ -87,7 +88,8 @@ Remember that you can select an element directly, for example:
   font-family: "Bungee Shade", cursive;
   color: #fc47bb;
   text-shadow: 0 0 5px #fc47bb;
-}```
+}
+```
 
 Alternatively, selecting an element by its class name:
 ```.submitButton {
@@ -99,13 +101,15 @@ Alternatively, selecting an element by its class name:
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}```
+}
+```
 
 Add animations by using pseudo-selectors such as :hover, as shown in this example:
 
 ```.submitButton :hover {
   background-color: #b92985;
-}```
+}
+```
 
 [Google Fonts](https://fonts.google.com/) is a great resource for typography. Simply select the font you'd like to use, copy the link and paste it below your stylesheet within the  <head/>. You will then be able to use the font within your CSS file like this:
   `font-family: "Bungee Shade", cursive;`
