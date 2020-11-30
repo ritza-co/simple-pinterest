@@ -12,7 +12,12 @@
     <h1 class="header">My Moodboard</h1>
     <div class="searchContainer">
       <label class="searchLabel">search</label>
-      <input type="text" id="myInput" class="searchInput" oninput="filterTags()" />
+      <input
+        type="text"
+        id="myInput"
+        class="searchInput"
+        oninput="filterTags()"
+      />
     </div>
     <p id="searchResult"></p>
     <div class="cardContainer" id="cardContainer"></div>
@@ -34,7 +39,7 @@
 
       function appendData(data) {
         var cardContainer = document.getElementById("cardContainer");
-        cardContainer.innerHTML = '';
+        cardContainer.innerHTML = "";
 
         for (var i = 0; i < data.length; i++) {
           var card = document.createElement("div");
@@ -51,7 +56,16 @@
           const tagButtons = data[i].tags.map((tag) => {
             const tagButton = document.createElement("button");
             tagButton.onclick = () => {
-              console.log("clicked");
+              console.log("clicked", tag);
+              // const filteredCards = cards.filter((card) => {
+              //   return (
+              //     card.tags.find((tag) => {
+              //       return tagButton.includes(tag);
+              //     }) !== undefined
+              //   );
+              // });
+              // // appendData(filteredCards);
+              // console.log(filteredCards)
             };
             tagButton.innerHTML = tag;
             return tagButton;
@@ -67,11 +81,13 @@
         document.getElementById("searchResult").innerHTML =
           "You searched for: " + searchTerm;
         const searchTermLower = searchTerm.toLowerCase();
-        const filteredCards = cards.filter(card => {
-          return card.tags.find(tag => {
-            const tagLower = tag.toLowerCase();
-            return tagLower.includes(searchTermLower);
-          }) !== undefined;
+        const filteredCards = cards.filter((card) => {
+          return (
+            card.tags.find((tag) => {
+              const tagLower = tag.toLowerCase();
+              return tagLower.includes(searchTermLower);
+            }) !== undefined
+          );
         });
         appendData(filteredCards);
       }
