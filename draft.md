@@ -70,8 +70,7 @@ We'll start off with a basic HTML skeleton, hard-coding the elements in our wire
 
 ## CSS
 
-```
-/* Main styles */
+```/* Main styles */
 html {
   font-family: "helvetica neue", helvetica, arial, sans-serif;
 }
@@ -226,8 +225,7 @@ select {
 
 .submitButton :hover {
   background-color: #b92985;
-}
-```
+}```
 
 ## Javascript 
 
@@ -327,7 +325,8 @@ select {
           newCardModal.style.display = "none";
         }
       };
-    </script>```
+    </script>
+    ```
 
 ### Additional reasources
 
