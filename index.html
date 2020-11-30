@@ -138,12 +138,14 @@
             appendData(cards)
             newCardModal.style.display = "none";
           }
-          var newCardModal = document.getElementById("newCardModal");
           var newCardButton = document.getElementById("newCardButton");
-          var closeModal = document.getElementsByClassName("close")[0];
+
+          var newCardModal = document.getElementById("newCardModal");
           newCardButton.onclick = function () {
             newCardModal.style.display = "block";
           };
+          
+          var closeModal = document.getElementsByClassName("close")[0];
           closeModal.onclick = function () {
             newCardModal.style.display = "none";
           };
