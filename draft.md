@@ -161,9 +161,10 @@ Note that we can set attributes such as class names, source tags and ID's direct
 ```var card = document.createElement("div");
     card.className = "card";
 ```
-You can even append `onClick()` functions, such is seen below on the `tagButton` element, which will add the `onClick()` function to each button we create within this set.  
 
-To add our newly created child element (such as the <img/> element) to our card, we need to call the `appendChild() ` function. 
+You can even append `onClick()` functions, such is seen below on the `tagButton` element, which will add the `onClick()` function to each button we create within this set.
+
+To add our newly created child element (such as the <img/> element) to our card, we need to call the `appendChild() ` function.
 
 ```<script>
       const cardContainer = document.querySelector("cardContainer");
@@ -246,11 +247,11 @@ Note how we can set the search term value to the user's input value in the searc
 
 ## Adding a modal
 
-A modal is a variation of 'pop-up' that could display information or ask for user information, such as a sign-up form for example. 
-In our case, we want to use a basic modal to get the data we need to add a new card to our collection. 
+A modal is a variation of 'pop-up' that could display information or ask for user information, such as a sign-up form for example.
+In our case, we want to use a basic modal to get the data we need to add a new card to our collection.
 
 First, we'll add our modal html below our `cardContainer` element. Within the modal, we'll be using an html form element with a submit button.
-The input type specifies the type of user input we expect, which can be text, radio buttons, checkboxes, etc.  
+The input type specifies the type of user input we expect, which can be text, radio buttons, checkboxes, etc.
 
 ```<div id="newCardModal" class="modal">
       <div class="modal-content">
@@ -280,7 +281,7 @@ The input type specifies the type of user input we expect, which can be text, ra
     </div>
 ```
 
-Then, we need to create a button to open the modal by setting the display property to "block" ( from a default of `display = "none"`). To close the modal, we'll do the opposite, setting the display property back to `display = "none"`. 
+Then, we need to create a button to open the modal by setting the display property to "block" ( from a default of `display = "none"`). To close the modal, we'll do the opposite, setting the display property back to `display = "none"`.
 
 ```var newCardButton = document.getElementById("newCardButton");
 
@@ -303,20 +304,29 @@ Then, we need to create a button to open the modal by setting the display proper
 
 ## Create a new card with custom input data
 
+Lastly, we need to use the user data that wer collected from the modal inputs to create and append a new card to our collection.
+Each card needs to have a unique ID, which we can create by getting the last ID in the existing array and adding one. 
+
+To separate the tag values, we can use the Javasript `split()` function. 
+
+Create a `newCard` variable that stores the new data in the same format as in the exising `pins.json` format, and add the `newCard ` to your array by doing `cards = [...cards, newCard];`. 
+
+Don't forget to append your new cards to your existing collection and close your modal. 
+
 ```function saveNewCard() {
         var newImgSrc = document.getElementById("imgsrc").value;
         var newTags = document.getElementById("tags").value.split(";");
         var lastCardId = cards[cards.length - 1].id;
 
         var newCard = {
-          id: lastCardId + 1,
-          src: newImgSrc,
-          tags: newTags,
+            id: lastCardId + 1,
+            src: newImgSrc,
+            tags: newTags,
         };
         cards = [...cards, newCard];
         appendData(cards);
         newCardModal.style.display = "none";
-      }
+    }
 ```
 
 ### Additional reasources
