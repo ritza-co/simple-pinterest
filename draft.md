@@ -329,6 +329,3 @@ Don't forget to append your new cards to your existing collection and close your
     }
 ```
 
-### Additional reasources
-
-Google Fonts: https://fonts.google.com/
