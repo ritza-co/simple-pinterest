@@ -82,7 +82,8 @@ Remember to link it within the <head /> of your `index.html` file:
 Here are a few ideas to get you started.
 Remember that you can select an element directly, for example:
 
-```h1 {
+```
+h1 {
   font-size: 4rem;
   text-align: center;
   font-family: "Bungee Shade", cursive;
@@ -93,7 +94,8 @@ Remember that you can select an element directly, for example:
 
 Alternatively, selecting an element by its class name:
 
-```.submitButton {
+```
+.submitButton {
   width: 100%;
   background-color: #fc47bb;
   color: white;
@@ -107,7 +109,8 @@ Alternatively, selecting an element by its class name:
 
 Add animations by using pseudo-selectors such as :hover, as shown in this example:
 
-```.submitButton :hover {
+```
+.submitButton :hover {
   background-color: #b92985;
 }
 ```
@@ -120,7 +123,8 @@ Add animations by using pseudo-selectors such as :hover, as shown in this exampl
 Ideally, we'd like to dynamically populate our front-end with some data. We can do this by using the Javascript fetch() function to fetch the array in our `pins.json` file.
 To do this, we'll need to modify our HTML a bit.
 
-```<html>
+```
+<html>
   <head>
     <meta charset="utf-8" />
     <title>My Moodboard</title>
@@ -158,15 +162,17 @@ The `appendData()` function then maps over all the objects within the `pins.json
 
 Note that we can set attributes such as class names, source tags and ID's directly within this function, for example,
 
-```var card = document.createElement("div");
-    card.className = "card";
+```
+var card = document.createElement("div");
+card.className = "card";
 ```
 
 You can even append `onClick()` functions, such is seen below on the `tagButton` element, which will add the `onClick()` function to each button we create within this set.
 
 To add our newly created child element (such as the <img/> element) to our card, we need to call the `appendChild() ` function.
 
-```<script>
+```
+<script>
       const cardContainer = document.querySelector("cardContainer");
       let cards = [];
       fetch("pins.json")
@@ -218,7 +224,7 @@ To add our newly created child element (such as the <img/> element) to our card,
           }
         }
       }
-    </script>
+</script>
 ```
 
 ## Filtering through the tags
@@ -228,7 +234,8 @@ Add the following snippet to your <script/>, below the `appendData()` function.
 
 Note how we can set the search term value to the user's input value in the search bar by finding `var searchTerm = document.getElementById("searchInput").value;`
 
-```function filterTags() {
+```
+function filterTags() {
         var searchTerm = document.getElementById("searchInput").value;
         document.getElementById("searchResult").innerHTML =
           "You searched for: " + searchTerm;
@@ -242,7 +249,7 @@ Note how we can set the search term value to the user's input value in the searc
           );
         });
         appendData(filteredCards);
-      }
+}
 ```
 
 ## Adding a modal
@@ -253,7 +260,8 @@ In our case, we want to use a basic modal to get the data we need to add a new c
 First, we'll add our modal html below our `cardContainer` element. Within the modal, we'll be using an html form element with a submit button.
 The input type specifies the type of user input we expect, which can be text, radio buttons, checkboxes, etc.
 
-```<div id="newCardModal" class="modal">
+```
+<div id="newCardModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
         <form>
@@ -278,12 +286,13 @@ The input type specifies the type of user input we expect, which can be text, ra
           </button>
         </form>
       </div>
-    </div>
+</div>
 ```
 
 Then, we need to create a button to open the modal by setting the display property to "block" ( from a default of `display = "none"`). To close the modal, we'll do the opposite, setting the display property back to `display = "none"`.
 
-```var newCardButton = document.getElementById("newCardButton");
+```
+var newCardButton = document.getElementById("newCardButton");
 
       var newCardModal = document.getElementById("newCardModal");
       newCardButton.onclick = function () {
@@ -299,7 +308,7 @@ Then, we need to create a button to open the modal by setting the display proper
         if (event.target == newCardModal) {
           newCardModal.style.display = "none";
         }
-      };
+};
 ```
 
 ## Create a new card with custom input data
@@ -313,7 +322,8 @@ Create a `newCard` variable that stores the new data in the same format as in th
 
 Don't forget to append your new cards to your existing collection and close your modal. 
 
-```function saveNewCard() {
+```
+function saveNewCard() {
         var newImgSrc = document.getElementById("imgsrc").value;
         var newTags = document.getElementById("tags").value.split(";");
         var lastCardId = cards[cards.length - 1].id;
@@ -326,6 +336,6 @@ Don't forget to append your new cards to your existing collection and close your
         cards = [...cards, newCard];
         appendData(cards);
         newCardModal.style.display = "none";
-    }
+}
 ```
 
