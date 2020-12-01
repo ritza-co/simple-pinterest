@@ -266,11 +266,12 @@ function filterTags() {
 A modal is a variation of 'pop-up' that could display information or ask for user information, such as a sign-up form for example.
 In our case, we want to use a basic modal to get the data we need to add a new card to our collection.
 
-First, we'll add our modal html below our `cardContainer` element. Within the modal, we'll be using an html form element with a submit button.
+Within the modal, we'll be using an html form element with a submit button.
 The input type specifies the type of user input we expect, which can be text, radio buttons, checkboxes, etc.
 
-```
+Add the modal html below the `cardContainer` element.
 
+```
 <div id="newCardModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -299,6 +300,69 @@ The input type specifies the type of user input we expect, which can be text, ra
 </div>
 ```
 
+Your full HTML should now look like this (excluding the <script />):
+
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>My Moodboard</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <h1 class="header">My Moodboard</h1>
+    <div class="searchContainer">
+      <label class="searchLabel">search</label>
+      <input
+        type="text"
+        id="searchInput"
+        class="searchInput"
+        oninput="filterTags()"
+      />
+      <p id="searchResult" class="searchResult"></p>
+      <button id="newCardButton" class="newCardButton">Add a card</button>
+    </div>
+    <div class="cardContainer" id="cardContainer"></div>
+    <div id="newCardModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form>
+          <label for="fname">Image source</label>
+          <input
+            type="text"
+            id="imgsrc"
+            name="source"
+            class="newCardInput"
+            placeholder="Paste your image url here"
+          />
+          <label for="lname">Tags</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            class="newCardInput"
+            placeholder="Separate tags with a semicolon ( ; )"
+          />
+          <button type="button" class="submitButton" onclick="saveNewCard()">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+```
+
 Then, we need to create a button to open the modal by setting the display property to "block" ( from a default of `display = "none"`). To close the modal, we'll do the opposite, setting the display property back to `display = "none"`.
 
 ```
@@ -320,6 +384,10 @@ var newCardButton = document.getElementById("newCardButton");
         }
 };
 ```
+
+When clicking on the "Add card" button, your modal should appear:
+
+![Styled modal containing a form and submit button](./images/styled-modal.png)
 
 ## Create a new card with custom input data
 
