@@ -378,6 +378,7 @@ var newCardButton = document.getElementById("newCardButton");
         newCardModal.style.display = "none";
       };
 
+    <!-- this will enable the modal to close when the user clicks anywhere outside of the modal body -->
       window.onclick = function (event) {
         if (event.target == newCardModal) {
           newCardModal.style.display = "none";
@@ -385,34 +386,38 @@ var newCardButton = document.getElementById("newCardButton");
 };
 ```
 
-When clicking on the "Add card" button, your modal should appear:
+When clicking on the "Add card" button, your modal form should appear and you should be able to close it by clicking the X at the top right, or anywhere outside of the modal contents. 
 
 ![Styled modal containing a form and submit button](./images/styled-modal.png)
 
 ## Create a new card with custom input data
 
-Lastly, we need to use the user data that wer collected from the modal inputs to create and append a new card to our collection.
-Each card needs to have a unique ID, which we can create by getting the last ID in the existing array and adding one.
-
-To separate the tag values, we can use the Javasript `split()` function.
-
-Create a `newCard` variable that stores the new data in the same format as in the exising `pins.json` format, and add the `newCard ` to your array by doing `cards = [...cards, newCard];`.
+Lastly, we need to use the user data that we collected from the modal inputs to create and append a new card to our collection.
 
 Don't forget to append your new cards to your existing collection and close your modal.
 
 ```
 function saveNewCard() {
-        var newImgSrc = document.getElementById("imgsrc").value;
-        var newTags = document.getElementById("tags").value.split(";");
-        var lastCardId = cards[cards.length - 1].id;
+    var newImgSrc = document.getElementById("imgsrc").value;
 
-        var newCard = {
-            id: lastCardId + 1,
-            src: newImgSrc,
-            tags: newTags,
-        };
-        cards = [...cards, newCard];
-        appendData(cards);
-        newCardModal.style.display = "none";
+    <!-- To separate the tag values, we can use the Javasript `split()` function. -->
+    var newTags = document.getElementById("tags").value.split(";");
+
+    <!-- Each card needs to have a unique ID, which we can create by getting the last ID in the existing array and adding one. -->
+    var lastCardId = cards[cards.length - 1].id;
+
+    <!-- Create a `newCard` variable that stores the new data in the same format as in the exising `pins.json` format -->
+    var newCard = {
+        id: lastCardId + 1,
+        src: newImgSrc,
+        tags: newTags,
+    };
+
+    <!-- add the `newCard ` to your existing card array -->
+    cards = [...cards, newCard];
+    appendData(cards);
+
+    <!-- set modal display to none to close the modal -->
+    newCardModal.style.display = "none";
 }
 ```
