@@ -421,3 +421,9 @@ function saveNewCard() {
     newCardModal.style.display = "none";
 }
 ```
+
+## Where next?
+
+A good place to start would be to customise this project. Feel free to play around with the fonts and styling to make it your own. 
+
+Some ideas for add-ons to this project would be to add the ability of filtering for more than one tag at a time, or to be able to add a custom description to ech card. 
