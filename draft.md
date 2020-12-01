@@ -6,6 +6,8 @@ The goal of this project it to create a "pinboard" of images that you can collec
 
 You will be able to create new cards with custom tags, and then filter tags via the search bar or by clicking on a tag.
 
+![Example of the Moodboard functionality. You can add a new card, search tags anf filter by tag buttons. ](./moodboard.gif)
+
 Before we jump into the code, let's start by creating a wireframe to plan the layout and functionality of our project.
 
 ![Landing page displaying cards with images and tags.](./wireframe.png)
