@@ -6,22 +6,23 @@ The goal of this project it to create a "pinboard" of images that you can collec
 
 You will be able to create new cards with custom tags, and then filter tags via the search bar or by clicking on a tag.
 
-![Example of the Moodboard functionality. You can add a new card, search tags anf filter by tag buttons. ](./moodboard.gif)
+![Example of the Moodboard functionality. You can add a new card, search tags anf filter by tag buttons. ](./images/moodboard.gif)
 
 Before we jump into the code, let's start by creating a wireframe to plan the layout and functionality of our project.
 
-![Landing page displaying cards with images and tags.](./wireframe.png)
+![Landing page displaying cards with images and tags.](./images/wireframe.png)
 
-This will be a single-page website with a header, a search bar and an "add card" button.
+This will be a single-page website with a header, a search bar, an "add card" button and a collection of cards.
 
-Some initial card data is stored in a .json file, which will be displayed by default. Each card has a unique image url, as well as custom, user generated tags. Clicking on a tag should filter through all the cards to display only the cards that contain the same tag. Using the search bar should also filter through the tags and display only the relevant cards.
+Some initial card data is stored in a `.json` file, which will be displayed by default. Each card has a unique image url, as well as custom, user generated tags. The user will be able to filter through the cards by searching for tags, or by clicking on a tag within a card.
 
 To add a new card, a modal will pop up wich will allow the user to enter an image url and custom tags.
 
-![Popup modal with a form which allows a user to create new cards.](./modal-wireframe.png)
+![Popup modal with a form which allows a user to create new cards.](./images/modal-wireframe.png)
 
-HTML basics
-We'll start off with a basic HTML skeleton, hard-coding the elements in our wireframe, which we are going to populate with data later on in this tutorial. You may find it useful to start adding your class names to each element, since we'll need this later when adding our styling.
+## The HTML skeleton
+
+We'll start off with a basic HTML skeleton, hard-coding the elements in our wireframe, which we are going to populate with data later on in this tutorial.
 
 ```
 <html>
@@ -50,85 +51,60 @@ We'll start off with a basic HTML skeleton, hard-coding the elements in our wire
         </div>
       </div>
     </div>
-    <div class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <form>
-          <label>Image source</label>
-          <input
-            class="newCardInput"
-          />
-          <label>Tags</label>
-          <input
-            class="newCardInput"
-          />
-          <button class="submitButton">
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
   </body>
 </html>
 ```
 
-After writing our initial html, we need to start adding some styling to make it pretty and add some interactivity such as hover animations.
-You could copy the styling from [this CSS file](https://github.com/ritza-co/simple-pinterest/blob/main/style.css), but it's encouraged to make this project your own, so don't be shy to customise the layout, colors and animations to make it your own.
+It should look something like this:
+![Basic HTML skeleton without styling](./images/html-skeleton.png)
 
 ## Adding styling
 
-Create a new file called `style.css`, which will contain all of your styling code.
-Remember to link it within the <head /> of your `index.html` file:
+After writing our initial html, we need to start adding some styling to make it pretty and add some interactivity such as hover animations.
+Copy the styling from [this CSS file](https://github.com/ritza-co/simple-pinterest/blob/main/style.css) into a new file called `style.css` in the same directory, which will contain all of your styling code.
+
+Remember to link your stylesheet within the <head /> of your `index.html` file:
 `<link rel="stylesheet" href="style.css" />`
 
-Here are a few ideas to get you started.
-Remember that you can select an element directly, for example:
-
-```
-h1 {
-  font-size: 4rem;
-  text-align: center;
-  font-family: "Bungee Shade", cursive;
-  color: #fc47bb;
-  text-shadow: 0 0 5px #fc47bb;
-}
-```
-
-Alternatively, selecting an element by its class name:
-
-```
-.submitButton {
-  width: 100%;
-  background-color: #fc47bb;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-```
-
-Add animations by using pseudo-selectors such as :hover, as shown in this example:
-
-```
-.submitButton :hover {
-  background-color: #b92985;
-}
-```
-
-[Google Fonts](https://fonts.google.com/) is a great resource for typography. Simply select the font you'd like to use, copy the link and paste it below your stylesheet within the <head/>. You will then be able to use the font within your CSS file like this:
-`font-family: "Bungee Shade", cursive;`
+[Google Fonts](https://fonts.google.com/) is a great resource for typography. Simply select the font you'd like to use, copy the link and paste it below your stylesheet within the <head/>.
+We are using the font family Bungee Shade for the heading and family Montserrat for the rest.
 
 ## Writing data to your HTML
 
-Ideally, we'd like to dynamically populate our front-end with some data. We can do this by using the Javascript fetch() function to fetch the array in our `pins.json` file.
+Ideally, we'd like to dynamically populate our front-end with some data instead of needing to hard code it into the HTML. We can do this by using the Javascript `fetch()` function to fetch the array in our `pins.json` file.
 To do this, we'll need to modify our HTML a bit.
+
+Most important to note for now, is that we are replacing this version of the cardContainer element
+
+```
+<div class="cardContainer">
+      <div class="card">
+        <img/>
+        <div class="tagContainer">
+          <button class="tagButton">
+            tagButton
+          </button>
+        </div>
+      </div>
+    </div>
+```
+
+with an empty div with an ID of `id = "cardContainer"` like this:
+`<div class="cardContainer" id="cardContainer"></div>`
+This creates an empty card container, which we will be dynamically filling with card data using Javascript.
+
+Your HTML should now look like this:
 
 ```
 <html>
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <title>My Moodboard</title>
   </head>
     <body>
@@ -149,64 +125,89 @@ To do this, we'll need to modify our HTML a bit.
 </html>
 ```
 
-Most important to note for now, is that we are replacing the card element with an empty container with an ID of `id = "cardContainer"`:
-`<div class="cardContainer" id="cardContainer"></div>`
-which we will be dynamically filling with data using Javascript.
+After adding the stylesheet and the Google fonts links, your page should now look something like this:
+![Current view after linking the stylesheet](./images/html-styling.png)
 
 ## Using Javascript
 
-In order to render a card with data from each object in the `pins.json` file, add this script to the bottom of your HTML, just above the closing <body/> tag.
+In order to render a card with data from each object in the `pins.json` file, we need to add a <script /> element to the bottom of your HTML, just above the closing <body/> tag.
 
-We begin by selecting the `cardContainer`, which will house the cards we are about to render.
-Using the `fetch()` function, we set `cards = data` received from the `pins.json` file.
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My Moodboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-The `appendData()` function then maps over all the objects within the `pins.json` array using a for-loop, creating a card with an image and tags. For-loops are useful when you want to run over the same code over-and-over, using different values. In this case, we want to create a separate card for each card object in the `pins.json` file.
+  <body>
 
-Note that we can set attributes such as class names, source tags and ID's directly within this function, for example,
+  <!-- Your HTML here -->
+
+    <script>
+    </script>
+
+  </body>
+</html>
+```
+
+We begin by selecting the `cardContainer`, which will house the cards we are about to render. Using the `fetch()` function, we set `cards = data` received from the `pins.json` file.
+
+```
+<script>
+    const cardContainer = document.querySelector("cardContainer");
+    let cards = [];
+    fetch("pins.json")
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        cards = data;
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
+</script>
+```
+
+We then create an `appendData()` function, which maps over all the objects within the `pins.json` array using a for-loop. For-loops are useful when you want to run over the same code over-and-over, using different values. In this case, we want to create a separate card for each card object in the `pins.json` file.
+
+Note that we can set attributes such as class names, source tags and ID's directly within this function. For example, this would set a class name of `class="card"` on all cards created within the for-loop.
 
 ```
 var card = document.createElement("div");
 card.className = "card";
 ```
 
-You can even append `onClick()` functions, such is seen below on the `tagButton` element, which will add the `onClick()` function to each button we create within this set.
-
-To add our newly created child element (such as the <img/> element) to our card, we need to call the `appendChild() ` function.
-
 ```
-<script>
-      const cardContainer = document.querySelector("cardContainer");
-      let cards = [];
-      fetch("pins.json")
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          cards = data;
-          appendData(cards);
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
-
-      function appendData(data) {
+    function appendData(data) {
+        <!-- get the element that we want to transform -->
         var cardContainer = document.getElementById("cardContainer");
         cardContainer.innerHTML = "";
 
+        <!-- i represents each object within the array  -->
         for (var i = 0; i < data.length; i++) {
+            <!-- create a new div element with a class="card" and append it to the cardContainer -->
           var card = document.createElement("div");
           card.className = "card";
           cardContainer.appendChild(card);
 
+        <!-- similarly, create an img element with a src value of data[i].src, which refers to the src object within our pins.json file -->
           var img = document.createElement("img");
           img.src = data[i].src;
           card.appendChild(img);
 
+        <!-- create another div element with a class of tagContainer -->
           var tagContainer = document.createElement("div");
           tagContainer.className = "tagContainer";
           card.appendChild(tagContainer);
+
+        <!-- to create the individual tag buttons, we will need to map over the data[i].tags object within pins.json, using the javascript function, map().  For each tag, we will create a new button element with an onClick() function-->
           const tagButtons = data[i].tags.map((tag) => {
             const tagButton = document.createElement("button");
+
+            <!-- the onClick() function filters the cards in the cardContainer by checking which cards contain tags with the same innerHTML  -->
             tagButton.onclick = () => {
               const filteredCards = cards.filter((card) => {
                 return (
@@ -225,32 +226,38 @@ To add our newly created child element (such as the <img/> element) to our card,
             tagContainer.appendChild(tagButton);
           }
         }
-      }
-</script>
+    }
 ```
 
 ## Filtering through the tags
 
 Once you've gotten to a point where you have cards with tags, we want to be able to filter these tags into collections.
-Add the following snippet to your <script/>, below the `appendData()` function.
 
-Note how we can set the search term value to the user's input value in the search bar by finding `var searchTerm = document.getElementById("searchInput").value;`
+Note how we can set the search term value to the user's input value in the search bar by finding
+`var searchTerm = document.getElementById("searchInput").value;`
+
+Add the following snippet to your <script/>, below the `appendData()` function.
 
 ```
 function filterTags() {
-        var searchTerm = document.getElementById("searchInput").value;
-        document.getElementById("searchResult").innerHTML =
-          "You searched for: " + searchTerm;
-        const searchTermLower = searchTerm.toLowerCase();
-        const filteredCards = cards.filter((card) => {
-          return (
+    <!-- get the value of the searchInput and display it to the user within the searchResult element  -->
+    var searchTerm = document.getElementById("searchInput").value;
+    document.getElementById("searchResult").innerHTML =
+    "You searched for: " + searchTerm;
+
+    <!-- transform the user input as well as the tags to be lower case to ensure that the tags match the search keys exactly -->
+    const searchTermLower = searchTerm.toLowerCase();
+
+    <!-- filter the cards based on whether the tags include the search term results -->
+    const filteredCards = cards.filter((card) => {
+        return (
             card.tags.find((tag) => {
-              const tagLower = tag.toLowerCase();
-              return tagLower.includes(searchTermLower);
+                const tagLower = tag.toLowerCase();
+                return tagLower.includes(searchTermLower);
             }) !== undefined
-          );
-        });
-        appendData(filteredCards);
+        );
+    });
+    appendData(filteredCards);
 }
 ```
 
@@ -263,6 +270,7 @@ First, we'll add our modal html below our `cardContainer` element. Within the mo
 The input type specifies the type of user input we expect, which can be text, radio buttons, checkboxes, etc.
 
 ```
+
 <div id="newCardModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -316,13 +324,13 @@ var newCardButton = document.getElementById("newCardButton");
 ## Create a new card with custom input data
 
 Lastly, we need to use the user data that wer collected from the modal inputs to create and append a new card to our collection.
-Each card needs to have a unique ID, which we can create by getting the last ID in the existing array and adding one. 
+Each card needs to have a unique ID, which we can create by getting the last ID in the existing array and adding one.
 
-To separate the tag values, we can use the Javasript `split()` function. 
+To separate the tag values, we can use the Javasript `split()` function.
 
-Create a `newCard` variable that stores the new data in the same format as in the exising `pins.json` format, and add the `newCard ` to your array by doing `cards = [...cards, newCard];`. 
+Create a `newCard` variable that stores the new data in the same format as in the exising `pins.json` format, and add the `newCard ` to your array by doing `cards = [...cards, newCard];`.
 
-Don't forget to append your new cards to your existing collection and close your modal. 
+Don't forget to append your new cards to your existing collection and close your modal.
 
 ```
 function saveNewCard() {
@@ -340,4 +348,3 @@ function saveNewCard() {
         newCardModal.style.display = "none";
 }
 ```
-
