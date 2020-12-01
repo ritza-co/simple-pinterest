@@ -22,4 +22,8 @@ Displaying JSON data: https://howtocreateapps.com/fetch-and-display-json-html-ja
 
 Using fetch: https://css-tricks.com/using-fetch/
 
+For-loops: https://www.w3schools.com/js/js_loop_for.asp
+
 Google Fonts: https://fonts.google.com/
+
+

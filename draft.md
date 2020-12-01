@@ -139,46 +139,31 @@ To do this, we'll need to modify our HTML a bit.
       <button id="newCardButton" class="newCardButton">Add a card</button>
     </div>
     <div class="cardContainer" id="cardContainer"></div>
-    <div id="newCardModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <form>
-          <label for="fname">Image source</label>
-          <input
-            type="text"
-            id="imgsrc"
-            name="source"
-            class="newCardInput"
-            placeholder="Paste your image url here"
-          />
-          <label for="lname">Tags</label>
-          <input
-            type="text"
-            id="tags"
-            name="tags"
-            class="newCardInput"
-            placeholder="Separate tags with a semicolon ( ; )"
-          />
-          <button type="button" class="submitButton" onclick="saveNewCard()">
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
   </body>
 </html>
 ```
 
-Most important to note for now, is that we are replacing the card element with an empty container
+Most important to note for now, is that we are replacing the card element with an empty container with an ID of `id = "cardContainer"`:
 `<div class="cardContainer" id="cardContainer"></div>`
 which we will be dynamically filling with data using Javascript.
 
 ## Using Javascript
 
 In order to render a card with data from each object in the `pins.json` file, add this script to the bottom of your HTML, just above the closing <body/> tag.
+
 We begin by selecting the `cardContainer`, which will house the cards we are about to render.
 Using the `fetch()` function, we set `cards = data` received from the `pins.json` file.
-Within the `appendData()` then map over all the objects within the `pins.json` array using a for-loop, creating a card with an image and tags.
+
+The `appendData()` function then maps over all the objects within the `pins.json` array using a for-loop, creating a card with an image and tags. For-loops are useful when you want to run over the same code over-and-over, using different values. In this case, we want to create a separate card for each card object in the `pins.json` file.
+
+Note that we can set attributes such as class names, source tags and ID's directly within this function, for example,
+
+```var card = document.createElement("div");
+    card.className = "card";
+```
+You can even append `onClick()` functions, such is seen below on the `tagButton` element, which will add the `onClick()` function to each button we create within this set.  
+
+To add our newly created child element (such as the <img/> element) to our card, we need to call the `appendChild() ` function. 
 
 ```<script>
       const cardContainer = document.querySelector("cardContainer");
@@ -238,7 +223,9 @@ Within the `appendData()` then map over all the objects within the `pins.json` a
 ## Filtering through the tags
 
 Once you've gotten to a point where you have cards with tags, we want to be able to filter these tags into collections.
-Add the following snippet to your <script/>, below the `appendData()` function. 
+Add the following snippet to your <script/>, below the `appendData()` function.
+
+Note how we can set the search term value to the user's input value in the search bar by finding `var searchTerm = document.getElementById("searchInput").value;`
 
 ```function filterTags() {
         var searchTerm = document.getElementById("searchInput").value;
@@ -259,6 +246,42 @@ Add the following snippet to your <script/>, below the `appendData()` function.
 
 ## Adding a modal
 
+A modal is a variation of 'pop-up' that could display information or ask for user information, such as a sign-up form for example. 
+In our case, we want to use a basic modal to get the data we need to add a new card to our collection. 
+
+First, we'll add our modal html below our `cardContainer` element. Within the modal, we'll be using an html form element with a submit button.
+The input type specifies the type of user input we expect, which can be text, radio buttons, checkboxes, etc.  
+
+```<div id="newCardModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form>
+          <label for="imgSrc">Image source</label>
+          <input
+            type="text"
+            id="imgsrc"
+            name="source"
+            class="newCardInput"
+            placeholder="Paste your image url here"
+          />
+          <label for="tags">Tags</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            class="newCardInput"
+            placeholder="Separate tags with a semicolon ( ; )"
+          />
+          <button type="button" class="submitButton" onclick="saveNewCard()">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+```
+
+Then, we need to create a button to open the modal by setting the display property to "block" ( from a default of `display = "none"`). To close the modal, we'll do the opposite, setting the display property back to `display = "none"`. 
+
 ```var newCardButton = document.getElementById("newCardButton");
 
       var newCardModal = document.getElementById("newCardModal");
@@ -270,6 +293,7 @@ Add the following snippet to your <script/>, below the `appendData()` function.
       closeModal.onclick = function () {
         newCardModal.style.display = "none";
       };
+
       window.onclick = function (event) {
         if (event.target == newCardModal) {
           newCardModal.style.display = "none";
@@ -298,4 +322,3 @@ Add the following snippet to your <script/>, below the `appendData()` function.
 ### Additional reasources
 
 Google Fonts: https://fonts.google.com/
-
