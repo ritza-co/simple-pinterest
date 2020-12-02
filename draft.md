@@ -318,6 +318,7 @@ Add the modal html code below the `cardContainer` element in your HTML:
             class="newCardInput"
             placeholder="Separate tags with a semicolon ( ; )"
           />
+           
           <!-- we will be defining the functionality of `saveNewCard() within our script tag -->
 
           <button type="button" class="submitButton" onclick="saveNewCard()">
@@ -460,4 +461,9 @@ function saveNewCard() {
 
 A good place to start would be to customise this project. Feel free to play around with the fonts and styling to make it your own. 
 
-Some ideas for add-ons to this project would be to add the ability of filtering for more than one tag at a time, or to be able to add a custom description to each card. 
+Following that, some ideas for add-ons to this project would be the ability of addding a custom description to each card, or filtering for more than one tag at a time. 
+
+To add a cutom description block would be similar to how we built the search bar with the `searchResult` output in the sense that you'll need to create an input field and an empty container that will store the output. 
+Next, get the value from the input, and display it in the container. If you want to store the data, you'll need to follow a similar method as we did when adding a new card, except that you'll be adding a new entry to a card instead of adding an entire card object. 
+
+
