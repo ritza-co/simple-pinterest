@@ -463,11 +463,11 @@ A good place to start would be to customise this project. Feel free to play arou
 
 Here are some example projects if you need inspiration:
 
-https://repl.it/@Lean3Viljoen94/home-decor
-https://repl.it/@Lean3Viljoen94/recipe-board
-https://repl.it/@Lean3Viljoen94/travel-todos
+* Home decor board: https://repl.it/@Lean3Viljoen94/home-decor
+* Recipe collection: https://repl.it/@Lean3Viljoen94/recipe-board
+* Travel wishlist https://repl.it/@Lean3Viljoen94/travel-todos
 
-Following that, here are some ideas for add-ons to this project:  
+Following that, here are some ideas for feature  add-ons to this project:  
 
 ### Get photos using the Unsplash API
 
