@@ -461,11 +461,25 @@ function saveNewCard() {
 
 A good place to start would be to customise this project. Feel free to play around with the fonts and styling to make it your own. 
 
-Following that, some ideas for add-ons to this project would be the ability of addding a custom description to each card, or filtering for more than one tag at a time. 
+Here are some example projects if you need inspiration:
 
-To add a cutom description block would follow a similar approach to how we built the search bar with the `searchResult` output, in the sense that you'll need to create an input field and an empty container that will store the output. Next, get the value from the input, and display it in the container.
-If you want to store the data, you'll need to follow a similar method as we did when adding a new card, except that you'll be adding a new entry to a card instead of adding an entire card object. 
+https://repl.it/@Lean3Viljoen94/home-decor
+https://repl.it/@Lean3Viljoen94/recipe-board
+https://repl.it/@Lean3Viljoen94/travel-todos
 
+Following that, here are some ideas for add-ons to this project:  
+
+### Get photos using the Unsplash API
+
+[Unsplash](https://unsplash.com/developers) has a free JSON API that gives you access to thousands of high quality photos that can easily be integrated to your project. After creating an account, follow the README.md instructions for the [official javascript-wrapper](https://github.com/unsplash/unsplash-js) and read their [documentation](https://unsplash.com/documentation) if you get stuck. 
+
+### Searching for multiple tags at once
+
+You may want to search for more than one tag at a time, like searching "vegetarian" and "easy" recipes simultaneously. A hint for doing this, is to split your search terms in a similar way to how we split the tags when adding them to the card.  
+
+### Suggest tags as you type
+
+When you have a large number of tags, you may want to suggest existing tags to the user while they are typing in the search bar, using a drop-down list. To do this, you'll need to perform a fetch query while the user types, and populate your dropdown list with the all the possible tags that contain the search phrase. 
 
 
 
