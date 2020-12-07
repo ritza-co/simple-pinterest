@@ -4,21 +4,21 @@
 
 The goal of this project it to create a "pinboard" of images that you can collect, categorise with tags and reflect on later.
 
-You will be able to create new cards with custom tags, and then filter tags via the search bar or by clicking on a tag.
+You will be able to create new cards with custom tags and then filter tags via the search bar or by clicking on a tag.
 
-![Example of the Moodboard functionality. You can add a new card, search tags anf filter by tag buttons. ](./images/moodboard.gif)
+![Example of the Moodboard functionality. You can add a new card, search tags and filter by tag buttons.](./images/moodboard.gif)
 
 Before we jump into the code, let's start by creating a wireframe to plan the layout and functionality of our project.
 
 ![Landing page displaying cards with images and tags.](./images/wireframe.png)
 
-This will be a single-page website with a header, a search bar, an "add card" button and a collection of cards.
+This will be a single-page website with a header, a search bar, an `add card` button and a collection of cards.
 
-Some initial card data is stored in a `.json` file, which will be displayed by default. Each card has a unique image url, as well as custom, user generated tags. The user will be able to filter through the cards by searching for tags, or by clicking on a tag within a card.
+Some initial card data is stored in a `.json` file, which will be displayed by default. Each card has a unique image URL, as well as custom, user-generated tags. The user will be able to filter the cards by searching for tags or by clicking on a tag within a card.
 
-To add a new card, a modal will pop up wich will allow the user to enter an image url and custom tags.
+To add a new card, a modal will pop up that will allow the user to enter an image URL and custom tags.
 
-![Popup modal with a form which allows a user to create new cards.](./images/modal-wireframe.png)
+![Popup modal with a form that allows a user to create new cards.](./images/modal-wireframe.png)
 
 ## The HTML skeleton
 
@@ -61,23 +61,22 @@ It should look something like this:
 
 ## Adding styling
 
-After writing our initial html, we need to start adding some styling to make it pretty and add some interactivity such as hover animations.
-Copy the styling from [this CSS file](https://github.com/ritza-co/simple-pinterest/blob/main/style.css) into a new file called `style.css` in the same directory, which will contain all of your styling code.
+After writing our initial HTML, we need to start adding some styling to make it pretty and add some interactivity such as hover animations.
 
-Remember to link your stylesheet within the <head /> of your `index.html` file:
+Copy the styling from [this CSS file](https://github.com/ritza-co/simple-pinterest/blob/main/style.css) into a new file called `style.css` in the same directory.
+
+Remember to link your stylesheet within the <head/> of your `index.html` file:
 
 `<link rel="stylesheet" href="style.css" />`
 
-[Google Fonts](https://fonts.google.com/) is a great resource for typography. We are using the font family Bungee Shade for the heading and family Montserrat for the rest.
-To use Google Fonts, select the font you'd like to use, copy the link and paste it below your stylesheet within the <head/>. Now you'll be able to use it directly within your CSS. 
-
+[Google Fonts](https://fonts.google.com/) is a great resource for typography. We are using the font family Bungee Shade for the heading and family Montserrat for the body text.
+To use Google Fonts, select the font you'd like to use, copy the link and paste it below your stylesheet within the <head/>. Now you'll be able to use it within your CSS. 
 
 ## Writing data to your HTML
 
-Ideally, we'd like to dynamically populate our front-end with some data instead of needing to hard code it into the HTML. We can do this by using the Javascript `fetch()` function to fetch the array in our `pins.json` file.
-To do this, we'll need to modify our HTML skeleton a bit.
+Ideally, we'd like to dynamically populate our front end instead of needing to hard-code it into the HTML. We can do this by using the Javascript `fetch()` function to fetch the array in our `pins.json` file. To do this, we'll need to modify our HTML skeleton.
 
-Most important to note for now, is that we are replacing *this* version of the cardContainer element
+Most important to note for now is that we are replacing *this* version of the cardContainer element:
 
 ```
 <div class="cardContainer">
@@ -92,11 +91,11 @@ Most important to note for now, is that we are replacing *this* version of the c
     </div>
 ```
 
-with an empty div with an ID of `id = "cardContainer"` like this:
+We'll replace it with an empty div with an ID, `id = "cardContainer"`, like this:
 
 `<div class="cardContainer" id="cardContainer"></div>`
 
-This creates an empty card container, which we will be dynamically filling with card data using Javascript.
+This creates an empty card container, which we will dynamically fill with card data using Javascript.
 
 Your HTML should now look like this. Don't forget to link your stylesheet and your fonts. 
 
@@ -136,7 +135,7 @@ Your page should now look something like this:
 
 ## Using Javascript
 
-In order to render a card with data from each object in the `pins.json` file, we need to add a <script /> element to the bottom of the HTML, just above the closing <body/> tag.
+In order to render a card with data from each object in the `pins.json` file, we need to add a <script/> element to the bottom of the HTML, just above the closing <body/> tag.
 
 ```
 <!DOCTYPE html>
@@ -175,17 +174,17 @@ We'll begin by selecting the `cardContainer`, which will house the cards we are 
         console.log(err);
     });
 </script>
-
 ```
 
-We then create an `appendData()` function, which maps over all the objects within the `pins.json` array using a for-loop. For-loops are useful when you want to run over the same code over-and-over, using different values. In this case, we want to create a separate card for each card object in the `pins.json` file.
+We then create an `appendData()` function, which maps over all the objects within the `pins.json` array using a for loop. For loops are useful when you want to run over the same code over and over, using different values. In this case, we want to create a separate card for each card object in the `pins.json` file.
 
-Note that we can set attributes such as class names, source tags and ID's directly within this function. For example, this would set a class name of `class="card"` on all cards created within the for-loop.
+Note that we can set attributes such as class names, source tags and IDs directly within this function. For example, this code would set a class name of `class="card"` on all cards created within the for loop.
 
 ```
 var card = document.createElement("div");
 card.className = "card";
 ```
+
 Your `appendData()` function would look something like this:
 
 ```
@@ -200,25 +199,25 @@ Your `appendData()` function would look something like this:
 
         for (var i = 0; i < data.length; i++) {
 
-            <!-- create a new div element with a class="card" and append it to the cardContainer -->
+          <!-- create a new div element with class="card" and append it to the cardContainer -->
 
           var card = document.createElement("div");
           card.className = "card";
           cardContainer.appendChild(card);
 
-        <!-- similarly, create an img element with a src value of data[i].src, which refers to the src object within our pins.json file -->
+          <!-- similarly, create an img element with a src value of data[i].src, which refers to the src object within our pins.json file -->
 
           var img = document.createElement("img");
           img.src = data[i].src;
           card.appendChild(img);
 
-        <!-- create another div element with a class of tagContainer -->
+          <!-- create another div element with class="tagContainer" -->
 
           var tagContainer = document.createElement("div");
           tagContainer.className = "tagContainer";
           card.appendChild(tagContainer);
 
-        <!-- to create the individual tag buttons, we will need to map over the data[i].tags object within pins.json, using the javascript function, map().  For each tag, we will create a new button element with an onClick() function-->
+          <!-- to create the individual tag buttons, we will need to map over the data[i].tags object within pins.json, using the javascript function, map(). For each tag, we create a new button element with an onClick() function -->
 
           const tagButtons = data[i].tags.map((tag) => {
             const tagButton = document.createElement("button");
@@ -235,10 +234,9 @@ Your `appendData()` function would look something like this:
 
 ## Filtering through the tags
 
-Once you've gotten to a point where you have cards with tags, we want to be able to filter these tags into collections.
+Once we have cards with tags, we want to be able to filter these tags into collections.
 
-Note how we can set the search term value to the user's input value in the search bar by finding
-`var searchTerm = document.getElementById("searchInput").value;`
+Note how we can set the search term value to the user's input value in the search bar by finding `var searchTerm = document.getElementById("searchInput").value;`.
 
 Add the following snippet to your <script/>, below the `appendData()` function.
 
@@ -248,10 +246,9 @@ function filterTags() {
     <!-- get the value of the searchInput and display it to the user within the searchResult element  -->
 
     var searchTerm = document.getElementById("searchInput").value;
-    document.getElementById("searchResult").innerHTML =
-    "You searched for: " + searchTerm;
+    document.getElementById("searchResult").innerHTML = "You searched for: " + searchTerm;
 
-    <!-- transform the user input as well as the tags to be lower case to ensure that the tags match the search keys exactly -->
+    <!-- transform the user input as well as the tags to be lowercase to ensure that the tags match the search keys exactly -->
 
     const searchTermLower = searchTerm.toLowerCase();
 
@@ -269,7 +266,7 @@ function filterTags() {
 }
 ```
 
-Additionally, we want to be able to filter the cards by clicking on one of the tags. The `onClick()` function filters the cards in the cardContainer by checking which cards contain tags with the same innerHTML. Add the following to your `appendData()` function, below the creation of the tagButton element `const tagButton = document.createElement("button");`:
+Additionally, we want to be able to filter the cards by clicking on one of the tags. The `onClick()` function filters the cards in the card container by checking which cards contain tags with the same innerHTML. Add the following to your `appendData()` function, below the creation of the tagButton element `const tagButton = document.createElement("button");`.
             
 ```
 tagButton.onclick = () => {
@@ -286,19 +283,17 @@ tagButton.onclick = () => {
 
 ## Adding a modal
 
-A modal is a variation of 'pop-up' that could display information or ask for user information, such as a sign-up form for example.
-In our case, we want to use a basic modal to get the data we need to add a new card to our collection.
+A modal is a variation of a popup that can display information or ask for user information, such as a sign-up form. In our case, we want to use a basic modal to get the data we need to add a new card to our collection.
 
-Within the modal, we'll be using an html form element with a submit button.
-The input type specifies the type of user input we expect, which can be text, radio buttons, checkboxes, etc.
+Within the modal, we'll be using an HTML form element with a submit button. The input type specifies the type of user input we expect, which can be text, radio buttons, checkboxes, etc.
 
-Add the modal html code below the `cardContainer` element in your HTML:
+Add the modal HTML code below the `cardContainer` element.
 
 ```
 <div id="newCardModal" class="modal">
       <div class="modal-content">
 
-      <!-- the X-button can be acheved by using the "&times;" entity name  -->
+      <!-- the X-button can be achieved by using the "&times;" entity -->
 
         <span class="close">&times;</span>
         <form>
@@ -319,7 +314,7 @@ Add the modal html code below the `cardContainer` element in your HTML:
             placeholder="Separate tags with a semicolon ( ; )"
           />
            
-          <!-- we will be defining the functionality of `saveNewCard() within our script tag -->
+          <!-- we will define the functionality of saveNewCard() within our script tag -->
 
           <button type="button" class="submitButton" onclick="saveNewCard()">
             Submit
@@ -329,7 +324,7 @@ Add the modal html code below the `cardContainer` element in your HTML:
 </div>
 ```
 
-Your full HTML, excluding the <script /> contents, should now look like this :
+Your full HTML, excluding the <script/> contents, should now look like this:
 
 ```
 <!DOCTYPE html>
@@ -392,7 +387,7 @@ Your full HTML, excluding the <script /> contents, should now look like this :
 
 ```
 
-We still need to create a button to open and close the modal. We'll do this by setting the display property to "block" ( from a default of `display = "none"`). To close the modal, we'll do the opposite, setting the display property back to `display = "none"`.
+We still need to create a button to open and close the modal. We'll do this by setting the display property to "block" (from a default of `display="none"`). To close the modal, we'll do the opposite, setting the display property back to `display="none"`.
 
 ```
 var newCardButton = document.getElementById("newCardButton");
@@ -416,7 +411,7 @@ var newCardButton = document.getElementById("newCardButton");
 };
 ```
 
-When clicking on the "Add a card" button, your modal form should appear and you should be able to close it by clicking the X at the top right, or anywhere outside of the modal contents. 
+When clicking on the `Add a card` button, the modal form should appear and you should be able to close it by clicking the X at the top right, or anywhere outside of the modal contents. 
 
 ![Styled modal containing a form and submit button](./images/styled-modal.png)
 
@@ -430,7 +425,7 @@ We also need to append the new cards to our existing collection and close the mo
 function saveNewCard() {
     var newImgSrc = document.getElementById("imgsrc").value;
 
-    <!-- To separate the tag values, we can use the Javasript `split()` function. -->
+    <!-- To separate the tag values, we can use the Javasript split() function. -->
 
     var newTags = document.getElementById("tags").value.split(";");
 
@@ -438,7 +433,7 @@ function saveNewCard() {
 
     var lastCardId = cards[cards.length - 1].id;
 
-    <!-- Create a `newCard` variable that stores the new data in the same format as in the exising `pins.json` format -->
+    <!-- Create a newCard variable that stores the new data in the same format as in the exising pins.json format -->
 
     var newCard = {
         id: lastCardId + 1,
@@ -446,7 +441,7 @@ function saveNewCard() {
         tags: newTags,
     };
 
-    <!-- add the `newCard ` to your existing card array -->
+    <!-- add newCard to your existing card array -->
 
     cards = [...cards, newCard];
     appendData(cards);
@@ -459,27 +454,24 @@ function saveNewCard() {
 
 ## Where next?
 
-A good place to start would be to customise this project. Feel free to play around with the fonts and styling to make it your own. 
+A good place to start would be to customize this project. Feel free to play around with the fonts and styling to make it your own. 
 
 Here are some example projects if you need inspiration:
 
-* Home decor board: https://repl.it/@Lean3Viljoen94/home-decor
-* Recipe collection: https://repl.it/@Lean3Viljoen94/recipe-board
-* Travel wishlist https://repl.it/@Lean3Viljoen94/travel-todos
+* [Home decor board](https://repl.it/@Lean3Viljoen94/home-decor)
+* [Recipe collection](https://repl.it/@Lean3Viljoen94/recipe-board)
+* [Travel wishlist](https://repl.it/@Lean3Viljoen94/travel-todos)
 
-Following that, here are some ideas for feature  add-ons to this project:  
+Following that, here are some ideas for feature add-ons to this project:  
 
 ### Get photos using the Unsplash API
 
-[Unsplash](https://unsplash.com/developers) has a free JSON API that gives you access to thousands of high quality photos that can easily be integrated to your project. After creating an account, follow the README.md instructions for the [official javascript-wrapper](https://github.com/unsplash/unsplash-js) and read their [documentation](https://unsplash.com/documentation) if you get stuck. 
+[Unsplash](https://unsplash.com/developers) has a free JSON API that gives you access to thousands of high-quality photos that can easily be integrated to your project. After creating an account, follow the README.md instructions for the [official Javascript wrapper](https://github.com/unsplash/unsplash-js) and read their [documentation](https://unsplash.com/documentation) if you get stuck. 
 
 ### Searching for multiple tags at once
 
-You may want to search for more than one tag at a time, like searching "vegetarian" and "easy" recipes simultaneously. A hint for doing this, is to split your search terms in a similar way to how we split the tags when adding them to the card.  
+You may want to search for more than one tag at a time, like searching "vegetarian" and "easy" recipes simultaneously. A hint for doing this is to split the search terms in a similar way to how we split the tags when adding them to the card.  
 
 ### Suggest tags as you type
 
-When you have a large number of tags, you may want to suggest existing tags to the user while they are typing in the search bar, using a drop-down list. To do this, you'll need to perform a fetch query while the user types, and populate your dropdown list with the all the possible tags that contain the search phrase. 
-
-
-
+When you have a large number of tags, you may want to suggest existing tags to the user while they are typing in the search bar, using a drop-down list. To do this, you'll need to perform a fetch query while the user types, and populate your drop-down list with the all the possible tags that contain the search phrase. 
