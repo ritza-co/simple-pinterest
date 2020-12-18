@@ -24,6 +24,7 @@
         oninput="filterTags()"
       />
       <p id="searchResult" class="searchResult"></p>
+      <button id="clearSearchButton" class="clearSearchButton">Clear Search</button>
       <button id="newCardButton" class="newCardButton">Add a card</button>
     </div>
     <div class="cardContainer" id="cardContainer"></div>
@@ -183,6 +184,9 @@
       var newCardModal = document.getElementById("newCardModal");
       newCardButton.onclick = function () {
         newCardModal.style.display = "block";
+      };
+      clearSearchButton.onclick = function () {
+        appendData(cards);
       };
 
       var closeModal = document.getElementsByClassName("close")[0];
