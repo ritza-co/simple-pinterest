@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>My Moodboard</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <h1 class="header">My Moodboard</h1>
+    <div class="searchContainer">
+      <label class="searchLabel">search</label>
+      <input
+        type="text"
+        id="searchInput"
+        class="searchInput"
+        oninput="filterTags()"
+      />
+      <p id="searchResult" class="searchResult"></p>
+      <button id="newCardButton" class="newCardButton">Add a card</button>
+    </div>
+    <div class="cardContainer" id="cardContainer"></div>
+    <div id="newCardModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form>
+          <label for="fname">Image source</label>
+          <input
+            type="text"
+            id="imgsrc"
+            name="source"
+            class="newCardInput"
+            placeholder="Paste your image url here"
+          />
+          <label for="lname">Tags</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            class="newCardInput"
+            placeholder="Separate tags with a semicolon ( ; )"
+          />
+          <button type="button" class="submitButton" onclick="saveNewCard()">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+    <script>
+      const cardContainer = document.querySelector("cardContainer");
+      let cards = [];
+
+      fetch("pins.json")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          cards = data;
+          appendData(cards);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+      function appendData(data) {
+        var cardContainer = document.getElementById("cardContainer");
+        cardContainer.innerHTML = "";
+
+        for (var i = 0; i < data.length; i++) {
+          var card = document.createElement("div");
+          card.className = "card";
+          cardContainer.appendChild(card);
+
+          var img = document.createElement("img");
+          img.src = data[i].src;
+          card.appendChild(img);
+
+          var tagContainer = document.createElement("div");
+          tagContainer.className = "tagContainer";
+          card.appendChild(tagContainer);
+
+          const tagButtons = data[i].tags.map((tag) => {
+            const tagButton = document.createElement("button");
+            tagButton.onclick = () => {
+              const filteredCards = cards.filter((card) => {
+                return (
+                  card.tags.find((tag) => {
+                    return tag.includes(tagButton.innerHTML);
+                  }) !== undefined
+                );
+              });
+              appendData(filteredCards);
+            };
+            tagButton.innerHTML = tag;
+            return tagButton;
+          });
+          for (const tagButton of tagButtons) {
+            tagButton.className = "tagButton";
+            tagContainer.appendChild(tagButton);
+          }
+        }
+      }
+
+      function filterTags() {
+        var searchTerm = document.getElementById("searchInput").value;
+        document.getElementById("searchResult").innerHTML =
+          "You searched for: " + searchTerm;
+        const searchTermLower = searchTerm.toLowerCase();
+        const filteredCards = cards.filter((card) => {
+          return (
+            card.tags.find((tag) => {
+              const tagLower = tag.toLowerCase();
+              return tagLower.includes(searchTermLower);
+            }) !== undefined
+          );
+        });
+        appendData(filteredCards);
+      }
+
+      function saveNewCard() {
+        var newImgSrc = document.getElementById("imgsrc").value;
+        var newTags = document.getElementById("tags").value.split(";");
+        var lastCardId = cards[cards.length - 1].id;
+
+        var newCard = {
+          id: lastCardId + 1,
+          src: newImgSrc,
+          tags: newTags,
+        };
+        cards = [...cards, newCard];
+        appendData(cards);
+        newCardModal.style.display = "none";
+      }
+      var newCardButton = document.getElementById("newCardButton");
+
+      var newCardModal = document.getElementById("newCardModal");
+      newCardButton.onclick = function () {
+        newCardModal.style.display = "block";
+      };
+
+      var closeModal = document.getElementsByClassName("close")[0];
+      closeModal.onclick = function () {
+        newCardModal.style.display = "none";
+      };
+      window.onclick = function (event) {
+        if (event.target == newCardModal) {
+          newCardModal.style.display = "none";
+        }
+      };
+    </script>
+  </body>
+</html>
