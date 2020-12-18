@@ -151,20 +151,4 @@ select {
   background-color: #b92985;
 }
 
-#autocomplete-results {
-  display: none;
-  width: 100%;
-  margin-top: -2px;
-  
-  /* li {
-    width: 100%;
-    padding: 20px 15px;
-    border-right: #ffffff;
-    border-bottom: #ffffff;
-    border-left: #ffffff;
-    
-    &:hover {
-      @include background($focus-overlay);
-    }
-  } */
-}
+
