@@ -48,19 +48,28 @@ An easy way to mitigate this, is to extract the javascript code into a separate 
 ## Using localStorage
 
 To load our landing page with our existing collection of cards, we need to add our initial JSON data to localStorage. 
-So firstly, add an eventListener to check if there is existing data on page load. If yes, get the initial data from localStorage and display accordingly. 
+LocalStorage only supports strings as values, so data that we get from localStorage would be in string format, and data that we save to localStorage, need to be in string format. 
+We can get around this by using `JSON.stringify()` to convert a data array to a string, and `JSON.parse()` to convert the contents of localStorage back to our original format. 
 
-localStorage only supports strings as values, so data that we get from localStorage would be in string format, and data that we save to localStorage, need to be in string format. 
+Add an eventListener to check if there is existing data on page load. In the case that no data has been stored on localStorage before, `localStorage.getItem("initialPins")` will be equal to null. 
 
-We can get around this by using `JSON.stringify()` to convert a data array to a string, and `JSON.parse()` to convert the contents of localStorage back to our original format.   
+Then, within our if statement, check `if (localStorage.getItem("initialPins") === null)` and set the initial data on localStorage with `localStorage.setItem("initialPins", JSON.stringify(initialPins))`.
+
+If data already exists on localStorage, get the initial data from localStorage and display the cards accordingly by using `appendData(cards)`. 
 
 Add this function at the top of your `script.js` file, below your data array. 
 
 ```
   document.addEventListener("DOMContentLoaded", function (event) {
+  if (localStorage.getItem("initialPins") === null) {
+    localStorage.setItem("initialPins", JSON.stringify(initialPins))
     cards = JSON.parse(localStorage.getItem("initialPins"));
     appendData(cards);
-  });
+  } else {
+    cards = JSON.parse(localStorage.getItem("initialPins"));
+    appendData(cards);
+  }
+});
 ```
 When adding a card, we need to get the initial data from localStorage, if any.
 Set the result equal to an `existingPins` variable that we'll use later. 
