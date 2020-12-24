@@ -39,8 +39,14 @@ var initialPins = [
 const cardContainer = document.querySelector("cardContainer");
 
 document.addEventListener("DOMContentLoaded", function (event) {
-  cards = JSON.parse(localStorage.getItem("initialPins"));
-  appendData(cards);
+  if (localStorage.getItem("initialPins") === null) {
+    localStorage.setItem("initialPins", JSON.stringify(initialPins))
+    cards = JSON.parse(localStorage.getItem("initialPins"));
+    appendData(cards);
+  } else {
+    cards = JSON.parse(localStorage.getItem("initialPins"));
+    appendData(cards);
+  }
 });
 
 function appendData(cards) {
